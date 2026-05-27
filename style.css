@@ -1,0 +1,31 @@
+body {
+  background: #0a3d0a;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+h1 {
+  color: #ffd700;
+  text-shadow: 2px 2px 4px #000;
+  margin-top: 40px;
+}
+#game {
+  background: #145214;
+  border: 3px solid #ffd700;
+  border-radius: 15px;
+  padding: 30px;
+  max-width: 400px;
+  margin: 30px auto;
+}
+button {
+  background: #ffd700;
+  color: #0a3d0a;
+  border: none;
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}
