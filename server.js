@@ -9,12 +9,10 @@ const server = http.createServer(app);
 const io = new Server(server);
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-// sert les fichiers du dossier public
 app.use(express.static(path.join(__dirname, 'public')));
 
 bot.start((ctx) => {
-  // Railway te donnera l'URL après, on met un placeholder
-  const url = 'https://arena-chkoba-v2-production.up.railway.app
+  const url = 'https://arena-chkoba-v2-production.up.railway.app';
   ctx.reply('Arena Chkoba Legends 🎮', Markup.inlineKeyboard([
     [Markup.button.webApp('🎮 Jouer vs IA', url)]
   ]));
