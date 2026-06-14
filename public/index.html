@@ -1,1 +1,37 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chkoba</title><style>body{margin:0;background:#0a3d2e;color:#fff;font-family:sans-serif;text-align:center}h1{margin:10px}#t{background:#0f5c45;margin:10px;border-radius:12px;padding:10px;min-height:120px}.c{display:inline-block;width:55px;height:80px;background:#fff;color:#000;border-radius:6px;margin:3px;line-height:80px;font-weight:bold}button.c{border:0}</style></head><body><h1>Arena Chkoba</h1><div>Toi:<span id=p>0</span> - IA:<span id=b>0</span></div><div id=t></div><div id=m>Joue!</div><div id=h></div><script>let d=[],t=[],h=[],o=[],ps=0,bs=0,s=['♥','♦','♣','♠'];function N(){d=[];for(a of s)for(v=1;v<11;v++)d.push({v,a});d.sort(()=>Math.random()-.5)}function D(n,a){for(i=0;i<n;i++)a.push(d.pop())}function R(){document.getElementById('t').innerHTML=t.map(c=>`<div class=c>${c.v}${c.a}</div>`).join('');document.getElementById('h').innerHTML=h.map((c,i)=>`<button class=c onclick=P(${i})>${c.v}${c.a}</button>`).join('');p.textContent=ps;b.textContent=bs}function C(a,b){return a.v==b.v||a.v+b.v==11}function P(i){let c=h.splice(i,1)[0];let k=t.filter(x=>C(c,x));if(k.length){ps+=k.length+1;t=t.filter(x=>!k.includes(x));m.textContent='+'+(k.length+1)}else{t.push(c);m.textContent='Posée'}R();setTimeout(B,400)}function B(){if(!o.length)return;let c=o.shift();let f=t.find(x=>C(c,x));if(f){bs+=2;t=t.filter(x=>x!=f)}else t.push(c);R()}function S(){N();t=[];h=[];o=[];ps=bs=0;D(4,t);D(3,h);D(3,o);R()}S()</script></body></html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arena Chkoba</title>
+<style>
+body{margin:0;background:#0a3d2e;color:#fff;font-family:system-ui;text-align:center}
+h1{margin:12px;font-size:22px}
+#table{background:#0f5c45;margin:10px;border-radius:16px;padding:12px;min-height:150px}
+.card{display:inline-block;width:58px;height:88px;background:#fff;color:#000;border-radius:8px;margin:4px;line-height:88px;font-weight:bold;font-size:20px}
+.hand.card{background:#fffae6}
+button{border:none;cursor:pointer}
+#msg{margin:8px;min-height:20px}
+</style>
+</head>
+<body>
+<h1>♠️ Arena Chkoba</h1>
+<div>Toi: <span id="ps">0</span> - IA: <span id="bs">0</span></div>
+<div id="table"></div>
+<div id="msg">À toi!</div>
+<div id="hand"></div>
+<script>
+let deck=[],table=[],hand=[],bot=[],ps=0,bs=0;
+const suits=['♥','♦','♣','♠'];
+function newDeck(){deck=[];for(s of suits)for(v=1;v<=10;v++)deck.push({v,s});deck.sort(()=>Math.random()-.5)}
+function draw(n,a){for(i=0;i<n;i++)a.push(deck.pop())}
+function render(){document.getElementById('table').innerHTML=table.map(c=>`<div class=card>${c.v}${c.s}</div>`).join('');document.getElementById('hand').innerHTML=hand.map((c,i)=>`<button class=card onclick=play(${i})>${c.v}${c.s}</button>`).join('');document.getElementById('ps').textContent=ps;document.getElementById('bs').textContent=bs}
+function can(a,b){return a.v===b.v||a.v+b.v===11}
+function play(i){let c=hand.splice(i,1)[0];let take=table.filter(t=>can(c,t));if(take.length){ps+=take.length+1;table=table.filter(t=>!take.includes(t));msg('+'+(take.length+1))}else{table.push(c);msg('Posée')}render();setTimeout(botPlay,500)}
+function botPlay(){if(!bot.length)return;let c=bot.shift();let t=table.find(x=>can(c,x));if(t){bs+=2;table=table.filter(x=>x!==t)}else table.push(c);render()}
+function msg(t){document.getElementById('msg').textContent=t}
+function start(){newDeck();table=[];hand=[];bot=[];ps=bs=0;draw(4,table);draw(3,hand);draw(3,bot);render()}
+start();
+</script>
+</body>
+</html>
